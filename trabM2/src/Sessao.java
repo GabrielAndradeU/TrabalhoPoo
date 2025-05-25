@@ -8,11 +8,12 @@ public class Sessao {
     private Filme xFilme; // conectar
     private Ingresso xIngresso; // conectar
 
-    public Sessao(boolean estadoDaSessao, int horario, int qtdSalas, int nAssento, String TipoDeTela, String local) {
+    public Sessao(boolean estadoDaSessao, int horario, int qtdSalas, int nAssento, String TipoDeTela, String local, Filme qfilme) {
         this.estadoDaSessao = estadoDaSessao;
         this.horario = horario;
         nSalas = new ArrayList<>();
         nSalas.add(new Sala(nAssento,TipoDeTela,local));
+        qfilme.adicionarSessao(this);
     }
 
     public void adicionarSala(int nAssento, String TipoDeTela, String local){
