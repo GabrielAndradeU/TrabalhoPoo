@@ -13,6 +13,7 @@ public class Ingresso {
 
 
 
+
     public TipoDeIngresso getTipo() {
         return tipo;
     }
@@ -28,8 +29,6 @@ public class Ingresso {
     public void setCategoriaIngresso(CategoriaIngresso categoriaIngresso) {
         this.categoriaIngresso = categoriaIngresso;
     }
-
-
 
     @Override
     public String toString() {

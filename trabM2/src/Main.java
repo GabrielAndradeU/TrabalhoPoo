@@ -3,23 +3,19 @@
 public class Main {
     public static void main(String[] args) {
         Filme filme1 = new Filme("Vingadores",4,GeneroFilme.Aventura);
-        Sessao sessao1 = new Sessao(true,2,2,3,"Nãosei","Floripa",filme1);
+        Sessao sessao1 = new Sessao(true,2,2,3,"Nãosei","Floripa");
 
-        System.out.println(filme1.toString());
+       System.out.println("Filme:"+filme1.toString());
+       System.out.println("SESSÃO SEM FILME:"+sessao1.toString());
 
-        sessao1.adicionarSala(10,"Boa","Palhoca");
+        sessao1.adicionarFilmeNaSessao(filme1);
 
-        System.out.println(sessao1.toString());
+        System.out.println(sessao1.assentosDisponiveis());
 
-        filme1.adicionarSessao(sessao1);
+        sessao1.comprarIngresso(TipoDeIngresso.MeioIngresso,CategoriaIngresso.ingressoFisico);
 
-        System.out.println(filme1.toString());
+        System.out.println(sessao1.assentosDisponiveis());
 
-        Filme filme2 = new Filme("Liga da Justica",2,GeneroFilme.Ação);
-
-        filme2.adicionarSessao(sessao1);
-
-        System.out.println(filme2.toString());
 
     }
 }

@@ -2,31 +2,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sessao {
-    private boolean estadoDaSessao;
+    private boolean statusDaSessao;
     private int horario;
-    private List<Sala> nSalas;
+    private Sala nSalas;
     private Filme xFilme; // conectar
-    private Ingresso xIngresso; // conectar
+    private List<Ingresso> xIngresso; // conectar
 
-    public Sessao(boolean estadoDaSessao, int horario, int qtdSalas, int nAssento, String TipoDeTela, String local, Filme qfilme) {
-        this.estadoDaSessao = estadoDaSessao;
+    public Sessao(boolean statusDaSessao, int horario, int qtdSalas, int nAssento, String tipoDeTela, String local) {
+        this.statusDaSessao = statusDaSessao;
         this.horario = horario;
-        nSalas = new ArrayList<>();
-        nSalas.add(new Sala(nAssento,TipoDeTela,local));
-        qfilme.adicionarSessao(this);
+        nSalas = new Sala(nAssento,tipoDeTela, local); //composição
+        this.xIngresso = new ArrayList<>();
     }
 
-    public void adicionarSala(int nAssento, String TipoDeTela, String local){
-        nSalas.add(new Sala(nAssento,TipoDeTela, local));
+    public int assentosDisponiveis() {
+        return nSalas.getnAssentos() - xIngresso.size();
+    }
+    public String comprarIngresso(TipoDeIngresso tipo, CategoriaIngresso categoria) {
+        if (assentosDisponiveis() > 0) {
+            Ingresso novoIngresso = new Ingresso(tipo, this, categoria);
+            xIngresso.add(novoIngresso);
+            return "Ingresso comprado com sucesso!";
+        } else {
+            return "Não há assentos disponíveis.";
+        }
     }
 
 
-    public boolean isEstadoDaSessao() {
-        return estadoDaSessao;
+    public void adicionarFilmeNaSessao(Filme xFilme) {
+        this.xFilme = xFilme;
     }
 
-    public void setEstadoDaSessao(boolean estadoDaSessao) {
-        this.estadoDaSessao = estadoDaSessao;
+    public boolean isStatusDaSessao() {
+        return statusDaSessao;
+    }
+
+    public void setStatusDaSessao(boolean statusDaSessao) {
+        this.statusDaSessao = statusDaSessao;
     }
 
     public int getHorario() {
@@ -37,11 +49,11 @@ public class Sessao {
         this.horario = horario;
     }
 
-    public List<Sala> getnSalas() {
+    public Sala getnSalas() {
         return nSalas;
     }
 
-    public void setnSalas(List<Sala> nSalas) {
+    public void setnSalas(Sala nSalas) {
         this.nSalas = nSalas;
     }
 
@@ -49,9 +61,10 @@ public class Sessao {
     @Override
     public String toString() {
         return "Sessao{" +
-                "estadoDaSessao=" + estadoDaSessao +
-                ", horario=" + horario +
-                ", nSalas=" + nSalas +
+                " STATUS: " + statusDaSessao +
+                ", HORARIO: " + horario +
+                ", SALA: " + nSalas +
+                ", FILME: " + xFilme +
                 '}';
     }
 }
